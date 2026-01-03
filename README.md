@@ -1,5 +1,5 @@
 # EC2 Jenkins Pipeline Project 
-This project demonstrates how to automate the creation and management of AWS EC2 instances using a Jenkins pipeline. The pipeline can launch EC2 instances, configure them, and integrate with other infrastructure components as needed.
+This project show how to automate the creation and management of AWS EC2 instances using a Jenkins pipeline. The pipeline can launch EC2 instances, configure them, and integrate with other infrastructure components as needed.
 
 ## Tools Used 
 - AWS EC2 – to launch and manage instances
@@ -68,7 +68,7 @@ While implementing the Jenkins pipeline to launch AWS EC2 instances, I encounter
 
 ## Conclusion
 
-This project demonstrates the automation of AWS EC2 instance creation using Jenkins pipelines.  
+This project show the automation of AWS EC2 instance creation using Jenkins pipelines.  
 
 Through this process, I learned how to:  
 - Integrate Jenkins with AWS using IAM roles or credentials  
