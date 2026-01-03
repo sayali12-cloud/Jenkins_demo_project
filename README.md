@@ -20,12 +20,12 @@ This project demonstrates how to automate the creation and management of AWS EC2
 EC2-pipeline-project/
 │
 ├── Jenkinsfile # Pipeline script for Jenkins
-├── scripts/
-│ ├── create_ec2.sh # Script to launch EC2 instances
-│ └── configure_ec2.sh # Script to configure EC2 
 ├── README.md
+├── screenshots/ 
+    ├── ec2_instances.png
+    ├── jenkins_pipeline.png
 
-Challenges And Learning
+
 ## Challenges Faced While Creating EC2 via Jenkins Pipeline
 
 While implementing the Jenkins pipeline to launch AWS EC2 instances, I encountered the following challenges:
