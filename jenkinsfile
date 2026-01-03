@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "ap-south-1"
+        AMI_ID = "ami-00ca570c1b6d79f36"   // Amazon Linux 2 (example)
+        INSTANCE_TYPE = "t3.micro"
+        KEY_NAME = "linuxkey"
+        SECURITY_GROUP = "sg-0567db2d7f276d06e"
+        SUBNET_ID = "subnet-031d7383023e934c4"
+        INSTANCE_NAME ="aws_resource"
+    }
+
+    stages {
+
+        stage('Check AWS CLI') {
+            steps {
+                sh 'aws --version'
+            }
+        }
+
+        stage('Launch EC2 Instance') {
+            steps {
+                sh """
+                aws ec2 run-instances \
+                --image-id ${AMI_ID} \
+                --count 1 \
+                --instance-type ${INSTANCE_TYPE} \
+                --key-name ${KEY_NAME} \
+                --security-group-ids ${SECURITY_GROUP} \
+                --subnet-id ${SUBNET_ID} \
+                --region ${AWS_REGION} \
+                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]"
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ EC2 Instance launched successfully"
+        }
+        failure {
+            echo "❌ EC2 launch failed"
+        }
+    }
+}
+
