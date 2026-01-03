@@ -1,13 +1,70 @@
 # EC2 Jenkins Pipeline Project 
-This project creates AWS EC2 instance using jenkins pipeline.
-## Tools Used 
- - AWSec2
- - Jenkins
- - GitHub
- - AWS CLI
- - Linux
+This project demonstrates how to automate the creation and management of AWS EC2 instances using a Jenkins pipeline. The pipeline can launch EC2 instances, configure them, and integrate with other infrastructure components as needed.
 
-## Flow
-1. Code pushed to GitHub
-2. Jenkins pulls Jenkinsfile
-3. Pipeline Launched EC2 using AWS CLI
+## Tools Used 
+- AWS EC2 – to launch and manage instances
+- Jenkins – to automate the pipeline
+- GitHub – version control for Jenkinsfile and scripts
+- AWS CLI / Shell Scripts – to execute commands on EC2
+- Linux– environment for scripting
+
+## Project Workflow
+  1. Code Commit: Push your Jenkinsfile and scripts to GitHub.
+  2. Pipeline Trigger: Jenkins detects changes and triggers the pipeline.
+  3. EC2 Launch: The pipeline executes scripts or AWS CLI commands to launch EC2 instances.
+  4. Configuration: Additional setup or configuration scripts run on the instances.
+  5. Verification: Ensure EC2 instances are running and reachable.
+
+## Project Structure
+
+EC2-pipeline-project/
+│
+├── Jenkinsfile # Pipeline script for Jenkins
+├── scripts/
+│ ├── create_ec2.sh # Script to launch EC2 instances
+│ └── configure_ec2.sh # Script to configure EC2 
+├── README.md
+
+Challenges And Learning
+## Challenges Faced While Creating EC2 via Jenkins Pipeline
+
+While implementing the Jenkins pipeline to launch AWS EC2 instances, I encountered the following challenges:
+
+1. **AWS Credentials Not Configured**
+   - Jenkins pipeline failed because it could not locate AWS credentials.
+   - Needed to configure either **IAM Role** (recommended) or **Access Keys** correctly on the Jenkins node.
+
+2. **Key Pair Issues**
+   - Pipeline failed with `InvalidKeyPair.NotFound`.
+   - Challenge: Ensuring the correct **key pair exists** in AWS and is referenced properly in the pipeline.
+
+3. **Subnet ID and Security Group Errors**
+   - Errors like `InvalidSubnetID` or `InvalidGroup` occurred.
+   - Needed to find the **correct subnet ID and security group ID** in the appropriate AWS region.
+
+4. **First Pipeline Run Failure**
+   - The initial run often failed due to syntax or configuration errors.
+   - Sometimes, EC2 instances were partially created even when the Jenkins job failed.
+
+5. **Multiple Instances Created**
+   - Running the pipeline multiple times created extra EC2 instances.
+   - Needed a way to **track and uniquely name instances** to avoid duplication.
+
+6. **Termination Confusion**
+   - Accidentally terminated main or other EC2 instances when cleaning up.
+   - Learned to enable **termination protection** and carefully select instance IDs before termination.
+
+7. **Pipeline Syntax and Multi-Line Commands**
+   - Writing Groovy `sh` blocks for AWS CLI commands caused syntax errors.
+   - Proper line continuation (`\`) and quoting were required for successful execution.
+
+8. **Internet/Network Dependency**
+   - AWS CLI commands require internet access from the Jenkins node.
+   - Needed to ensure the EC2 running Jenkins had proper network connectivity.
+
+9. **Output Verification**
+   - Challenge: Understanding how to check EC2 creation status from Jenkins console output.
+   - Cross-verification with **AWS Console** was necessary to confirm instance launch success.
+
+
+
