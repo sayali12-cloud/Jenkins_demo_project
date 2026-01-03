@@ -1,1 +1,0 @@
-Screenshit for the project
